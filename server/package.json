@@ -12,7 +12,7 @@
         "websocket",
         "game"
     ],
-    "author": "",
+    "author": "David LOUISE",
     "license": "MIT",
     "dependencies": {
         "ws": "^8.14.2",

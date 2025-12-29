@@ -449,7 +449,7 @@ Pull Requests bienvenues :
 
 ### ⚡ **Bon jeu dans Photon Arena !** 🎮
 
-**Créé avec ❤️ par des passionnés de FPS multijoueur**
+**Créé avec ❤️ par David LOUISE**
 
 [![GitHub Stars](https://img.shields.io/github/stars/Davidlouiz/Photon-Arena?style=social)](https://github.com/Davidlouiz/Photon-Arena)
 [![GitHub Forks](https://img.shields.io/github/forks/Davidlouiz/Photon-Arena?style=social)](https://github.com/Davidlouiz/Photon-Arena/fork)

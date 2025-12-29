@@ -327,8 +327,6 @@ Client ──► [Inputs: WASD, Souris, Tir] ──► Serveur
 
 <details>
 <summary><b>🔌 Impossible de se connecter</b></summary>
-<details>
-<summary><b>🔌 Impossible de se connecter</b></summary>
 
 - Serveur démarré ? Vérifiez le terminal
 - URL correcte ? `http://` et non `https://`

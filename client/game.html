@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photon Arena - Jeu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* HUD */
+        #hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Crosshair */
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+        }
+
+        #crosshair::before,
+        #crosshair::after {
+            content: '';
+            position: absolute;
+            background: #00ffff;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+        }
+
+        #crosshair::before {
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            transform: translateY(-50%);
+        }
+
+        #crosshair::after {
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+        /* Stats */
+        #stats {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            font-size: 18px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        #health {
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        #score {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        #timer {
+            color: #ff00ff;
+        }
+
+        /* Scoreboard */
+        #scoreboard {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            color: #fff;
+            min-width: 200px;
+        }
+
+        #scoreboard h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .player-score {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .player-name {
+            color: #fff;
+        }
+
+        .player-points {
+            color: #ff00ff;
+            font-weight: bold;
+        }
+
+        /* Message de début */
+        #startMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border: 3px solid #00ffff;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            pointer-events: all;
+        }
+
+        #startMessage h2 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        #startMessage p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        #startMessage button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        #startMessage button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Game Over */
+        #gameOver {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 40px;
+            border: 3px solid #ff00ff;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            min-width: 400px;
+            pointer-events: all;
+        }
+
+        #gameOver h2 {
+            color: #ff00ff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        #leaderboard {
+            margin-bottom: 30px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .rank {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .winner {
+            background: rgba(255, 0, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="hud">
+        <div id="crosshair"></div>
+
+        <div id="stats">
+            <div id="health">❤️ Santé: <span id="healthValue">100</span></div>
+            <div id="score">⭐ Score: <span id="scoreValue">0</span></div>
+            <div id="timer">⏱️ Temps: <span id="timerValue">5:00</span></div>
+        </div>
+
+        <div id="scoreboard">
+            <h3>CLASSEMENT</h3>
+            <div id="scoreboardList"></div>
+        </div>
+
+        <div id="startMessage">
+            <h2>PRÊT À COMBATTRE ?</h2>
+            <p>Cliquez sur COMMENCER pour verrouiller la souris et entrer dans l'arène.</p>
+            <p style="font-size: 0.9em; color: #888;">
+                ZQSD: Déplacements | Souris: Viser | Clic gauche: Tirer | Espace: Saut
+            </p>
+            <button id="startButton">COMMENCER</button>
+        </div>
+
+        <div id="gameOver">
+            <h2>PARTIE TERMINÉE</h2>
+            <div id="leaderboard"></div>
+            <button onclick="location.reload()">NOUVELLE PARTIE</button>
+        </div>
+    </div>
+
+    <!-- Three.js depuis CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+
+    <!-- PointerLockControls - Version compatible -->
+    <script>
+        // Créer PointerLockControls compatible avec la version non-module de Three.js
+        THREE.PointerLockControls = function (camera, domElement) {
+            const scope = this;
+            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+            const PI_2 = Math.PI / 2;
+            const vec = new THREE.Vector3();
+
+            domElement = domElement !== undefined ? domElement : document.body;
+
+            this.domElement = domElement;
+            this.isLocked = false;
+
+            const onMouseMove = function (event) {
+                if (scope.isLocked === false) return;
+
+                const movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                const movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+                euler.setFromQuaternion(camera.quaternion);
+                euler.y -= movementX * 0.002;
+                euler.x -= movementY * 0.002;
+                euler.x = Math.max(-PI_2, Math.min(PI_2, euler.x));
+                camera.quaternion.setFromEuler(euler);
+            };
+
+            const onPointerlockChange = function () {
+                if (document.pointerLockElement === domElement) {
+                    scope.dispatchEvent({ type: 'lock' });
+                    scope.isLocked = true;
+                } else {
+                    scope.dispatchEvent({ type: 'unlock' });
+                    scope.isLocked = false;
+                }
+            };
+
+            const onPointerlockError = function () {
+                console.error('PointerLockControls: Unable to use Pointer Lock API');
+            };
+
+            this.connect = function () {
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('pointerlockchange', onPointerlockChange);
+                document.addEventListener('pointerlockerror', onPointerlockError);
+            };
+
+            this.disconnect = function () {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('pointerlockchange', onPointerlockChange);
+                document.removeEventListener('pointerlockerror', onPointerlockError);
+            };
+
+            this.dispose = function () {
+                this.disconnect();
+            };
+
+            this.getObject = function () {
+                return camera;
+            };
+
+            this.getDirection = (function () {
+                const direction = new THREE.Vector3(0, 0, -1);
+                return function (v) {
+                    return v.copy(direction).applyQuaternion(camera.quaternion);
+                };
+            })();
+
+            this.moveForward = function (distance) {
+                vec.setFromMatrixColumn(camera.matrix, 0);
+                vec.crossVectors(camera.up, vec);
+                camera.position.addScaledVector(vec, distance);
+            };
+
+            this.moveRight = function (distance) {
+                vec.setFromMatrixColumn(camera.matrix, 0);
+                camera.position.addScaledVector(vec, distance);
+            };
+
+            this.lock = function () {
+                domElement.requestPointerLock();
+            };
+
+            this.unlock = function () {
+                document.exitPointerLock();
+            };
+
+            this.connect();
+        };
+
+        THREE.PointerLockControls.prototype = Object.create(THREE.EventDispatcher.prototype);
+        THREE.PointerLockControls.prototype.constructor = THREE.PointerLockControls;
+    </script>
+
+    <!-- Scripts du jeu -->
+    <script src="js/network.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/game.js"></script>
+</body>
+
+</html>

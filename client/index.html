@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photon Arena - Connexion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            border-radius: 15px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #00ffff;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #00ffff;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .error {
+            color: #ff4444;
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .info {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PHOTON ARENA</h1>
+        <p class="subtitle">FPS Multijoueur</p>
+
+        <div class="input-group">
+            <label for="username">Votre Pseudo</label>
+            <input type="text" id="username" placeholder="Entrez votre pseudo" maxlength="15" autocomplete="off">
+        </div>
+
+        <button onclick="joinGame()">REJOINDRE LA PARTIE</button>
+
+        <p class="error" id="error"></p>
+
+        <p class="info">
+            Commandes: ZQSD - Déplacements | Souris - Viser | Clic gauche - Tirer
+        </p>
+    </div>
+
+    <script>
+        // Focus automatique sur le champ de saisie
+        document.getElementById('username').focus();
+
+        // Appuyer sur Entrée pour rejoindre
+        document.getElementById('username').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                joinGame();
+            }
+        });
+
+        function joinGame() {
+            const username = document.getElementById('username').value.trim();
+            const errorElement = document.getElementById('error');
+
+            // Validation
+            if (username.length < 2) {
+                errorElement.textContent = 'Le pseudo doit contenir au moins 2 caractères';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            if (username.length > 15) {
+                errorElement.textContent = 'Le pseudo ne peut pas dépasser 15 caractères';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            // Stocker le pseudo dans le localStorage
+            localStorage.setItem('photonArenaUsername', username);
+
+            // Rediriger vers la page de jeu
+            window.location.href = 'game.html';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,62 +1,163 @@
-# 🎮 Photon Arena
+<div align="center">
 
-**FPS multijoueur type laser game** - Jouez directement dans votre navigateur sans inscription !
+# ⚡ PHOTON ARENA ⚡
 
-Photon Arena est un jeu de tir à la première personne en temps réel pour 2 à 8 joueurs. Connectez-vous simplement via une IP locale, choisissez votre pseudo et entrez dans l'arène !
+### FPS Multijoueur Web - Laser Game Sans Installation
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-14+-green.svg)](https://nodejs.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-0.159-orange.svg)](https://threejs.org/)
+
+**Jouez directement dans votre navigateur - 2 à 8 joueurs - Connexion locale**
+
+[🚀 Démarrage Rapide](#-installation-et-lancement) • [📖 Documentation](#-créer-des-maps-personnalisées) • [🎮 Gameplay](#-gameplay)
+
+</div>
+
+---
+
+## 📸 Aperçu
+
+<div align="center">
+
+### Menu de Connexion
+![Menu de connexion](menu.png)
+
+### Action en Jeu
+![Jeu en action](jeu.png)
+
+</div>
 
 ## ✨ Caractéristiques
 
-- 🎯 **FPS multijoueur** en temps réel
-- 🌐 **Navigateur uniquement** - Aucun téléchargement requis
-- 🚀 **Sans inscription** - Pseudo et c'est parti
-- 🗺️ **Maps personnalisables** via fichiers BMP
-- ⚡ **Connexion directe** par IP locale
-- 🎨 **Style néon low-poly** pour des performances optimales
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 Multijoueur Temps Réel
+- 2 à 8 joueurs simultanés
+- Synchronisation WebSocket
+- Serveur autoritaire anti-triche
+- Latence optimisée (30Hz tick rate)
+
+</td>
+<td width="50%">
+
+### 🌐 Navigateur Uniquement
+- Aucun téléchargement requis
+- HTML5 + WebGL (Three.js)
+- Compatible Chrome, Firefox, Edge
+- Connexion directe via IP:PORT
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 🗺️ Maps Personnalisables
+- Format BMP simple
+- Codage couleur pixel
+- Éditeur graphique compatible
+- Génération 3D automatique
+
+</td>
+<td>
+
+### ⚡ Performance & Style
+- Objectif 60 FPS stable
+- Graphismes low-poly néon
+- Esthétique cyberpunk minimaliste
+- Pas d'inscription nécessaire
+
+</td>
+</tr>
+</table>
 
 ## 🎮 Gameplay
 
-### Contrôles
-- **ZQSD** : Déplacements
-- **Souris** : Viser
-- **Clic gauche** : Tirer
-- **Espace** : Saut
+### 🕹️ Contrôles
+```
+WASD / ZQSD  →  Déplacements
+Souris       →  Viser & Rotation caméra
+Clic gauche  →  Tirer (laser hitscan)
+Espace       →  Saut
+```
 
-### Règles
-- Chaque joueur a **100 PV**
-- Chaque tir inflige **25 dégâts** (4 tirs = élimination)
-- **+1 point** par élimination
-- Respawn automatique après **3 secondes**
+### 🎯 Règles du Jeu
+| Paramètre | Valeur |
+|-----------|---------|
+| **Points de vie** | 100 PV |
+| **Dégâts par tir** | 25 (4 tirs = élimination) |
+| **Score par kill** | +1 point |
+| **Temps de respawn** | 3 secondes |
+| **Durée de partie** | 5 minutes |
+| **Victoire** | 20 éliminations OU meilleur score |
 
-### Conditions de victoire
-- Premier à atteindre **20 éliminations**
-- Ou meilleur score après **5 minutes**
+### 🏆 Conditions de Victoire
+- 🥇 Premier à atteindre **20 éliminations**
+- ⏱️ Ou meilleur score après **5 minutes**
+
+---
 
 ## 🚀 Installation et Lancement
 
-### Prérequis
-- **Node.js** (version 14 ou supérieure)
-- Un navigateur moderne (Chrome, Firefox, Edge)
-- Python 3 avec PIL/Pillow (pour créer des maps personnalisées)
+### 📋 Prérequis
+- **Node.js** v14+ ([télécharger](https://nodejs.org/))
+- Navigateur moderne (Chrome, Firefox, Edge)
+- Python 3 + PIL/Pillow *(optionnel, pour créer des maps)*
 
-### Installation
+### ⚡ Démarrage Rapide
 
+**Option 1 : Scripts automatiques**
+```bash
+# Linux / Mac
+./start.sh
+
+# Windows
+start.bat
+```
+
+**Option 2 : Manuel**
 ```bash
 # Cloner ou télécharger le projet
 cd "Photon Arena"
 
-# Installer les dépendances du serveur
+# Installer les dépendances
 cd server
 npm install
-```
 
-### Lancer le serveur
-
-```bash
-cd server
+# Lancer le serveur
 npm start
 ```
 
-Le serveur démarre sur le port **3000**. Vous verrez un message avec les URLs de connexion :
+### 🌐 Rejoindre la Partie
+
+<table>
+<tr>
+<td width="50%">
+
+**💻 En Local**
+1. Ouvrez `http://localhost:3000`
+2. Entrez votre pseudo
+3. Cliquez sur **REJOINDRE**
+4. Cliquez sur **COMMENCER**
+
+</td>
+<td width="50%">
+
+**🔗 Sur le Réseau**
+1. Trouvez l'IP du serveur :
+   - Windows : `ipconfig`
+   - Linux/Mac : `ip addr` ou `hostname -I`
+2. Ouvrez `http://[IP]:3000`
+   *(ex: http://192.168.1.10:3000)*
+3. Entrez votre pseudo et jouez !
+
+</td>
+</tr>
+</table>
+
+### 📺 Message de Démarrage du Serveur
 
 ```
 ╔═══════════════════════════════════════╗
@@ -65,16 +166,28 @@ Le serveur démarre sur le port **3000**. Vous verrez un message avec les URLs d
 
 Serveur démarré sur le port 3000
 
-Pour rejoindre la partie, ouvrez dans votre navigateur:
+Pour rejoindre la partie :
 - En local: http://localhost:3000
 - Sur le réseau: http://[VOTRE_IP]:3000
 ```
 
-### Rejoindre la partie
+---
 
-1. **Sur la même machine** : Ouvrez `http://localhost:3000`
-2. **Sur le réseau local** : 
-   - Trouvez l'IP du serveur : 
+## 🗺️ Créer des Maps Personnalisées
+
+### 🎨 Codage Couleur BMP
+
+Les maps sont des images BMP avec un système de codage couleur simple :
+
+| Couleur | Code Hex | Fonction |
+|---------|----------|----------|
+| ⬜ **Blanc** | `#FFFFFF` | Sol traversable |
+| ⬛ **Noir** | `#000000` | Mur (collision) |
+| 🟪 **Fuchsia** | `#FF00FF` | Point de spawn |
+
+### 🛠️ Créer une Map
+
+**Méthode 1 : Éditeur d'image** 
      - Windows : `ipconfig`
      - Linux/Mac : `ip addr` ou `ifconfig`
    - Ouvrez `http://[IP_SERVEUR]:3000` (ex: `http://192.168.1.10:3000`)
@@ -94,15 +207,14 @@ Les maps sont des **images BMP** de 64x64 pixels (ou plus) avec un codage couleu
 | ⬛ Noir | `#000000` | Mur (collision) |
 | 🟪 Fuchsia | `#FF00FF` | Point de respawn |
 
-### Créer une map
+**Méthode 1 : Éditeur d'image**
+1. Créez une image **64x64 pixels** (ou 128x128)
+2. Utilisez les couleurs **exactes** ci-dessus
+3. Placez minimum **4 points de spawn** (fuchsia)
+4. Sauvegardez en format **BMP**
+5. Placez dans `/maps/default.bmp`
 
-1. **Avec un éditeur d'image** :
-   - Créez une image 64x64 pixels (ou 128x128 pour plus de détails)
-   - Utilisez les couleurs exactes ci-dessus
-   - Placez au moins 4 points de spawn (pixels fuchsia)
-   - Sauvegardez en format **BMP**
-
-2. **Avec Python** :
+**Méthode 2 : Script Python**
 ```python
 from PIL import Image
 
@@ -155,71 +267,193 @@ Photon Arena/
 └── README.md
 ```
 
+---
+
 ## 🔧 Architecture Technique
 
-### Serveur (Node.js)
-- **WebSocket** pour la communication temps réel
-- **Serveur autoritaire** : validation des tirs, dégâts, positions
-- **Tick rate** : 30 Hz
-- Lecture de maps BMP avec **Jimp**
+<div align="center">
 
-### Client (HTML/CSS/JS)
-- **Three.js** pour le rendu 3D
-- **PointerLockControls** pour la caméra FPS
-- **WebSocket** pour la synchronisation
-- Interpolation des positions des autres joueurs
+```mermaid
+graph TB
+    A[Client Browser] -->|WebSocket| B[Serveur Node.js]
+    B -->|Broadcast État| A
+    B --> C[GameState]
+    B --> D[MapLoader]
+    C --> E[Gestion Joueurs]
+    C --> F[Score & Timer]
+    D --> G[Lecture BMP]
+    A --> H[Three.js Renderer]
+    A --> I[PointerLockControls]
+```
 
-### Réseau
-- Client → Serveur : Inputs (mouvement, rotation, tir)
-- Serveur → Client : État du jeu (positions, scores, santé)
-- Validation côté serveur pour éviter la triche
+</div>
 
-## 🐛 Dépannage
+### 🖥️ Serveur (Node.js)
+| Composant | Technologie | Rôle |
+|-----------|-------------|------|
+| **Communication** | WebSocket (ws) | Temps réel bidirectionnel |
+| **Serveur Web** | Express | Fichiers statiques + API |
+| **Game Loop** | setInterval 30Hz | Tick rate optimisé |
+| **Maps** | Jimp | Lecture BMP pixel par pixel |
+| **Validation** | Autoritaire | Anti-triche, dégâts, score |
 
-### Le serveur ne démarre pas
-- Vérifiez que Node.js est installé : `node --version`
-- Vérifiez que le port 3000 n'est pas déjà utilisé
-- Installez les dépendances : `npm install`
+### 🌐 Client (Three.js + WebGL)
+| Composant | Technologie | Rôle |
+|-----------|-------------|------|
+| **Rendu 3D** | Three.js | WebGL renderer |
+| **Contrôles** | PointerLockControls | Caméra FPS |
+| **Réseau** | WebSocket API | Synchronisation temps réel |
+| **Raycasting** | Three.js Raycaster | Détection tirs |
+| **Physics** | Custom | Gravité, collisions |
 
-### Impossible de se connecter
-- Vérifiez que le serveur est démarré
-- Vérifiez l'URL (http://, pas https://)
-- Vérifiez le pare-feu (autoriser le port 3000)
-- Sur réseau local, utilisez l'IP locale (192.168.x.x)
-
-### La map ne se charge pas
-- Vérifiez que `default.bmp` existe dans `/maps`
-- Vérifiez les couleurs (exactement #FFFFFF, #000000, #FF00FF)
-- Vérifiez qu'il y a au moins 1 point de spawn (fuchsia)
-
-### Lag ou saccades
-- Limitez le nombre de murs dans la map
-- Réduisez la taille de la map (64x64 recommandé)
-- Fermez les autres applications
-
-## 🎯 Roadmap / Améliorations Possibles
-
-- [ ] Plusieurs types d'armes
-- [ ] Power-ups sur la map
-- [ ] Modes de jeu (Team Deathmatch, Capture the Flag)
-- [ ] Système de parties multiples (rooms)
-- [ ] Sons et effets sonores
-- [ ] Minimap
-- [ ] Statistiques de partie
-- [ ] Support mobile (tactile)
-
-## 📜 Licence
-
-MIT - Utilisez, modifiez et distribuez librement !
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! N'hésitez pas à :
-- Signaler des bugs
-- Proposer de nouvelles fonctionnalités
-- Créer des maps personnalisées
-- Améliorer le code
+### 🔄 Flux de Données
+```
+Client ──► [Inputs: WASD, Souris, Tir] ──► Serveur
+           ◄── [État: Positions, Scores, HP] ◄──
+```
 
 ---
 
-**Bon jeu dans Photon Arena ! ⚡🎮**
+## 🐛 Dépannage
+
+<details>
+<summary><b>❌ Le serveur ne démarre pas</b></summary>
+
+- Vérifiez Node.js : `node --version` (v14+ requis)
+- Port 3000 déjà utilisé ? Changez dans `server/server.js`
+- Réinstallez : `cd server && rm -rf node_modules && npm install`
+
+</details>
+
+<details>
+<summary><b>🔌 Impossible de se connecter</b></summary>
+<details>
+<summary><b>🔌 Impossible de se connecter</b></summary>
+
+- Serveur démarré ? Vérifiez le terminal
+- URL correcte ? `http://` et non `https://`
+- Pare-feu ? Autorisez le port 3000
+- Réseau local ? Utilisez l'IP privée (192.168.x.x)
+- Testez : `http://localhost:3000`
+
+</details>
+
+<details>
+<summary><b>🗺️ La map ne se charge pas</b></summary>
+
+- Fichier existe ? Vérifiez `/maps/default.bmp`
+- Couleurs exactes ? `#FFFFFF`, `#000000`, `#FF00FF`
+- Points de spawn ? Minimum 1 pixel fuchsia requis
+- Format BMP ? Pas PNG, JPG ou autre
+
+</details>
+
+<details>
+<summary><b>⚡ Lag ou saccades</b></summary>
+
+- Limitez les murs : max ~300 pour une map 64x64
+- Réduisez la taille de la map
+- Fermez les applications gourmandes
+- Vérifiez la latence réseau (ping)
+
+</details>
+
+---
+
+## 🚀 Roadmap & Améliorations Futures
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎮 Gameplay
+- [ ] Plusieurs types d'armes
+- [ ] Power-ups sur la map
+- [ ] Modes de jeu variés
+  - [ ] Team Deathmatch
+  - [ ] Capture the Flag
+  - [ ] Zone Control
+
+</td>
+<td width="50%">
+
+### ✨ Fonctionnalités
+- [ ] Système de rooms multiples
+- [ ] Sons et effets sonores
+- [ ] Minimap 2D
+- [ ] Statistiques détaillées
+- [ ] Replay de partie
+- [ ] Support mobile tactile
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📜 Licence
+
+**MIT License** - Utilisez, modifiez et distribuez librement !
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! 🎉
+
+<table>
+<tr>
+<td>
+
+### 🐛 Signaler un Bug
+Ouvrez une [issue](../../issues) avec :
+- Description du problème
+- Étapes pour reproduire
+- Navigateur / OS utilisé
+
+</td>
+<td>
+
+### ✨ Proposer une Fonctionnalité
+Créez une [discussion](../../discussions) pour :
+- Nouvelles idées de gameplay
+- Améliorations techniques
+- Suggestions d'UI/UX
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 🗺️ Partager des Maps
+Publiez vos créations :
+- Maps BMP originales
+- Screenshots en jeu
+- Tutoriels de création
+
+</td>
+<td>
+
+### 💻 Contribuer au Code
+Pull Requests bienvenues :
+- Fork le projet
+- Créez une branche feature
+- Testez vos changements
+- Soumettez votre PR
+
+</td>
+</tr>
+</table>
+
+---
+
+<div align="center">
+
+### ⚡ **Bon jeu dans Photon Arena !** 🎮
+
+**Créé avec ❤️ par des passionnés de FPS multijoueur**
+
+[![GitHub Stars](https://img.shields.io/github/stars/Davidlouiz/Photon-Arena?style=social)](https://github.com/Davidlouiz/Photon-Arena)
+[![GitHub Forks](https://img.shields.io/github/forks/Davidlouiz/Photon-Arena?style=social)](https://github.com/Davidlouiz/Photon-Arena/fork)
+
+[⭐ Star ce projet](https://github.com/Davidlouiz/Photon-Arena) • [🐛 Reporter un bug](../../issues) • [💡 Suggestions](../../discussions)
+
+</div>
